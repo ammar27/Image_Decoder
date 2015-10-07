@@ -4,7 +4,7 @@ var status_message = $("#status-message")[0];
 var selected_image = $("#selected-image")[0];
 var features = "?visualFeatures=Description&details=Celebrities";
 file_list.addEventListener("change", function () {
-    status_message.innerHTML = "Please wait while we find out who this is.";
+    status_message.innerHTML = "Please wait while we find out who this is";
     status_message.style.display = "block";
     processImage(function (file) {
         sendCelebrityRequest(file, function () {
@@ -14,7 +14,7 @@ file_list.addEventListener("change", function () {
 });
 function sendSearchRequest() {
     var name = person_name.innerHTML;
-    $("#details-placeholder")[0].innerHTML = "Fetching details";
+    status_message.innerHTML = "Fetching details";
     $.ajax({
         url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
         beforeSend: function (xhrObj) {
@@ -25,13 +25,11 @@ function sendSearchRequest() {
         .done(function (data) {
         if (data) {
             status_message.innerHTML = "Finished Successfully";
-            console.log(data);
-            $("#details-placeholder")[0].style.display = "none";
+            $("#details").html("");
             for (var i in data.webPages.value) {
                 var url = data.webPages.value[i].displayUrl;
                 var substr = "http";
                 if (url.indexOf(substr) == -1) {
-                    console.log("appending http");
                     url = "http://" + url;
                 }
                 var text1 = "<div class=\"first-el\"><a href=" + url + ">" + data.webPages.value[i].name + "</a></div>";
@@ -41,12 +39,12 @@ function sendSearchRequest() {
             }
         }
         else {
-            status_message.innerHTML = "Search results could not be obtained.";
-            console.log("Search results could not be obtained.");
+            status_message.innerHTML = "Search results could not be obtained";
+            console.log("Search results could not be obtained");
         }
     })
         .fail(function (error) {
-        status_message.innerHTML = "Search results could not be obtained.";
+        status_message.innerHTML = "Search results could not be obtained";
         console.log(error);
     });
 }
@@ -67,19 +65,17 @@ function sendCelebrityRequest(file, callback) {
                 var name = data.categories[0].detail.celebrities[0].name;
                 var description = data.description.captions[0].text;
                 person_name.innerHTML = name;
-                console.log(name + ", " + description);
-                console.log(data);
                 callback();
             }
             else {
                 console.log(data);
                 person_name.innerHTML = "Sorry, person not found";
-                status_message.innerHTML = "We could not find who this is, please try another image.";
+                status_message.innerHTML = "We could not find who this is, please try another image";
             }
         }
         else {
-            status_message.innerHTML = "We could not find who this is, please try again.";
-            console.log("We could not find who this is, please try again.");
+            status_message.innerHTML = "We could not find who this is, please try again";
+            console.log("We could not find who this is, please try again");
         }
     })
         .fail(function (error) {
@@ -112,7 +108,7 @@ function readUrl(input) {
         var image_reader = new FileReader();
         image_reader.onload = function (e) {
             $("#selected-image").attr("src", e.target.result);
-            person_name.innerHTML = "Obtaining name for person below.";
+            person_name.innerHTML = "Fetching name";
         };
         image_reader.readAsDataURL(input.files[0]);
     }
