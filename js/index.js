@@ -1,3 +1,7 @@
+
+
+
+
 var person_name = $("#person-name")[0];
 var file_list = $("#file-list")[0];
 var status_message = $("#status-message")[0];
