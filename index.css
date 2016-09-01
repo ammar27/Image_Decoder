@@ -1,0 +1,29 @@
+body {
+  background-color: #353942;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  padding-top: 50px;
+  margin-top: 50px;
+}
+
+h4 {
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+}
+
+h4#person-name {
+  display: none;
+}
+
+input#file-list {
+  display: none;
+}
+
+.btn-wrapper {
+  text-align: center;
+  padding: 20px 0;
+}
