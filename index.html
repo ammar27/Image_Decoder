@@ -15,9 +15,6 @@
     <!--
     To collect end-user usage analytics about your application,
     insert the following script into each page you want to track.
-    Place this code immediately before the closing </head> tag,
-    and before any other scripts. Your first data will appear
-    automatically in just a few seconds.
     -->
     <script type="text/javascript">
       var appInsights=window.appInsights||function(config){
@@ -32,18 +29,34 @@
 </head>
 <body class="body">
 
-<h1> Celebrity Checker </h1>
-<h4 id="status-message"> Upload an image of someone famous and find out who they are! </h4>
-
-<img id="selected-image" src="">
-<h4 id="person-name"></h4>
-
-<div class="btn-wrapper">
-  <label class="btn btn-info" for="file-list">
-    <input id="file-list" type="file" onchange="readUrl(this);">
-    Upload an image
-  </label>
+<div id="title">
+  <h1> Image Decoder </h1>
 </div>
+
+<div id="info">
+  <h4 id="info-message"> Upload an image of someone famous and find out who they are! </h4>
+  <div class="btn-wrapper">
+    <label class="btn btn-info" for="file-list">
+      <input id="file-list" type="file" onchange="readUrl(this);">
+      Upload Image
+    </label>
+    <h4 id="status-message"></h4>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="col-sm-4" id="image-panel">
+    <div id="person-name">Celebrity</div>
+    <div id="celeb-image"><img id="selected-image" src="" alt="No image uploaded yet"></div>
+  </div>
+  <div class="col-sm-8" id="data-panel">
+    <div id="details">Details</div>
+  </div>
+</div>
+
+
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

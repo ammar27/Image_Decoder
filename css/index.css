@@ -2,28 +2,75 @@ body {
   background: url("../header.jpg");
 }
 
-h1 {
+#title {
   color: white;
   text-align: center;
-  padding-top: 50px;
-  margin-top: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(53, 57, 66, 0.5);
+}
+
+h1 {
+  font-weight: normal;
 }
 
 h4 {
-  color: white;
+  color: #353942;
   text-align: center;
-  padding-top: 20px;
 }
 
-/*h4#person-name {
+#info-message {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#status-message {
   display: none;
-}*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#image-panel {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+#data-panel {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+#person-name {
+  text-align: center;
+  color: white;
+  background-color: #353942;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#selected-image {
+  display: block;
+  margin: auto;
+  padding: auto;
+}
 
 input#file-list {
   display: none;
 }
 
+.btn {
+  background-color: #353942;
+}
+
 .btn-wrapper {
   text-align: center;
-  padding: 20px 0;
+  padding: 5px;
 }
