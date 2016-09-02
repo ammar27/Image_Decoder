@@ -15,9 +15,9 @@ h4 {
   padding-top: 20px;
 }
 
-h4#person-name {
+/*h4#person-name {
   display: none;
-}
+}*/
 
 input#file-list {
   display: none;

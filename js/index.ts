@@ -2,18 +2,42 @@ var person_name = $("#person-name")[0];
 var file_list : HTMLInputElement = <HTMLInputElement> $("#file-list")[0];
 var status_message = $("#status-message")[0];
 var selected_image = $("#selected-image")[0];
-var features : String = "?visualFeatures=Description&details=Celebrities";
+var features : string = "?visualFeatures=Description&details=Celebrities";
 
 file_list.addEventListener("change", function () {
   status_message.innerHTML = "Please wait while we retreive the information";
   processImage(function (file) {
-    sendRequest(file, function() {
+    sendCelebrityRequest(file, function() {
       console.log("Info retrieved");
+      sendSearchRequest();
     });
   });
 });
 
-function sendRequest(file, callback) : void{
+function sendSearchRequest() : void {
+  var name:string = person_name.innerHTML;
+
+  $.ajax({
+    url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
+    beforeSend: function(xhrObj) {
+      // Headers
+      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "19063d12e7394e688c93a2c346885d32");
+    },
+    type: "GET"
+  })
+    .done(function (data) {
+      if (data) {
+        console.log(data);
+      } else {
+        console.log("something went wrong");
+      }
+    })
+    .fail (function (error) {
+      console.log("something went horribly wrong");
+    });
+}
+
+function sendCelebrityRequest(file, callback) : void{
   $.ajax({
     url: "https://api.projectoxford.ai/vision/v1.0/analyze" + features,
     beforeSend: function(xhrObj) {
@@ -27,10 +51,12 @@ function sendRequest(file, callback) : void{
   })
     .done(function (data) {
       if (data) {
-        //var name : String = data.categories[0].detail.celebrities[0].name;
-        //var description : String = data.description.captions[0].text;
-        //console.log(name + ", " + description);
+        var name : string = data.categories[0].detail.celebrities[0].name;
+        var description : string = data.description.captions[0].text;
+        person_name.innerHTML = name;
+        console.log(name + ", " + description);
         console.log(data);
+        callback();
       } else {
         console.log("something went wrong");
       }
