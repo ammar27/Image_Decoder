@@ -67,12 +67,13 @@ function sendCelebrityRequest(file, callback) {
                 var name = data.categories[0].detail.celebrities[0].name;
                 var description = data.description.captions[0].text;
                 person_name.innerHTML = name;
+                $("#details").html("");
                 callback();
             }
             else {
-                console.log(data);
                 person_name.innerHTML = "Sorry, person not found";
                 status_message.innerHTML = "We could not find who this is, please try another image";
+                $("#details").html("");
             }
         }
         else {

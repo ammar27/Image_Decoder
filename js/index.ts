@@ -19,7 +19,7 @@ function sendSearchRequest() : void {
   var name:string = person_name.innerHTML;
   status_message.innerHTML = "Fetching details";
   $("#details").html("");
-  
+
   $.ajax({
     url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
     beforeSend: function(xhrObj) {
@@ -73,11 +73,12 @@ function sendCelebrityRequest(file, callback) : void{
           var name : string = data.categories[0].detail.celebrities[0].name;
           var description : string = data.description.captions[0].text;
           person_name.innerHTML = name;
+          $("#details").html("");
           callback();
         } else {
-          console.log(data);
           person_name.innerHTML = "Sorry, person not found";
           status_message.innerHTML = "We could not find who this is, please try another image";
+          $("#details").html("");
         }
       } else {
         status_message.innerHTML = "We could not find who this is, please try again";
