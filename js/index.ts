@@ -16,6 +16,7 @@ file_list.addEventListener("change", function () {
 
 function sendSearchRequest() : void {
   var name:string = person_name.innerHTML;
+  $("#details-placeholder")[0].innerHTML = "Fetching details";
 
   $.ajax({
     url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
@@ -28,6 +29,17 @@ function sendSearchRequest() : void {
       if (data) {
         status_message.innerHTML = "Finished Successfully";
         console.log(data);
+
+        $("#details-placeholder")[0].style.display = "none";
+        // Adding details dynamically
+        for (let i in data.webPages.value) {
+          // console.log(data.webPages.value[i]);
+          var text1 : string = "<div class=\"first-el\"><a href=" + data.webPages.value[i].displayUrl + ">" + data.webPages.value[i].name + "</a></div>";
+          var text2 : string = "<div class=\"second-el\">" + data.webPages.value[i].displayUrl + "</div>";
+          var text3 : string = "<div class=\"third-el\">" + data.webPages.value[i].snippet + "</div>";
+          $("#details").append(text1, text2, text3);
+        }
+
       } else {
         status_message.innerHTML = "Search results could not be obtained.";
         console.log("Search results could not be obtained.");

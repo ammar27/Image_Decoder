@@ -113,6 +113,23 @@ input#file-list {
   padding-bottom: 10px;
 }
 
+.first-el {
+  font-size: 17px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.second-el {
+  color: green;
+  padding-left: 10px;
+}
+
+.third-el {
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
 .btn-wrapper {
   text-align: center;
   padding: 5px;
