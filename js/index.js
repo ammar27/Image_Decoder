@@ -5,6 +5,7 @@ var selected_image = $("#selected-image")[0];
 var features = "?visualFeatures=Description&details=Celebrities";
 file_list.addEventListener("change", function () {
     status_message.innerHTML = "Please wait while we find out who this is";
+    status_message.style.color = "red";
     status_message.style.display = "block";
     processImage(function (file) {
         sendCelebrityRequest(file, function () {
@@ -25,6 +26,7 @@ function sendSearchRequest() {
         .done(function (data) {
         if (data) {
             status_message.innerHTML = "Finished Successfully";
+            status_message.style.color = "green";
             $("#details").html("");
             for (var i in data.webPages.value) {
                 var url = data.webPages.value[i].displayUrl;
