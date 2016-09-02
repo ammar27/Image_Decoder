@@ -49,12 +49,18 @@ function sendCelebrityRequest(file, callback) {
     })
         .done(function (data) {
         if (data) {
-            var name = data.categories[0].detail.celebrities[0].name;
-            var description = data.description.captions[0].text;
-            person_name.innerHTML = name;
-            console.log(name + ", " + description);
-            console.log(data);
-            callback();
+            if (typeof (data.categories[0].detail) != "undefined") {
+                var name = data.categories[0].detail.celebrities[0].name;
+                var description = data.description.captions[0].text;
+                person_name.innerHTML = name;
+                console.log(name + ", " + description);
+                console.log(data);
+                callback();
+            }
+            else {
+                person_name.innerHTML = "Sorry, person not found";
+                status_message.innerHTML = "We could not find who this is, please try another image.";
+            }
         }
         else {
             status_message.innerHTML = "We could not find who this is, please try again.";
@@ -74,6 +80,7 @@ function processImage(callback) {
     }
     else {
         status_message.innerHTML = "Invalid file";
+        person_name.innerHTML = "Cannot obtain name for this file";
         console.log("Invalid file");
     }
     reader.onloadend = function (e) {
