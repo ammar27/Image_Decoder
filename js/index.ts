@@ -6,6 +6,7 @@ var features : string = "?visualFeatures=Description&details=Celebrities";
 
 file_list.addEventListener("change", function () {
   status_message.innerHTML = "Please wait while we find out who this is";
+  status_message.style.color = "red";
   status_message.style.display = "block";
   processImage(function (file) {
     sendCelebrityRequest(file, function() {
@@ -28,6 +29,7 @@ function sendSearchRequest() : void {
     .done(function (data) {
       if (data) {
         status_message.innerHTML = "Finished Successfully";
+        status_message.style.color = "green";
         $("#details").html("");
         // Adding details dynamically
         for (let i in data.webPages.value) {
