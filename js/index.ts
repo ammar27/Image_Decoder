@@ -5,10 +5,10 @@ var selected_image = $("#selected-image")[0];
 var features : string = "?visualFeatures=Description&details=Celebrities";
 
 file_list.addEventListener("change", function () {
-  status_message.innerHTML = "Please wait while we retreive the information";
+  status_message.innerHTML = "Please wait while we find out who this is.";
+  status_message.style.display = "block";
   processImage(function (file) {
     sendCelebrityRequest(file, function() {
-      console.log("Info retrieved");
       sendSearchRequest();
     });
   });
@@ -20,20 +20,22 @@ function sendSearchRequest() : void {
   $.ajax({
     url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
     beforeSend: function(xhrObj) {
-      // Headers
       xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "19063d12e7394e688c93a2c346885d32");
     },
     type: "GET"
   })
     .done(function (data) {
       if (data) {
+        status_message.innerHTML = "Finished Successfully";
         console.log(data);
       } else {
-        console.log("something went wrong");
+        status_message.innerHTML = "Search results could not be obtained.";
+        console.log("Search results could not be obtained.");
       }
     })
     .fail (function (error) {
-      console.log("something went horribly wrong");
+      status_message.innerHTML = "Search results could not be obtained.";
+      console.log(error);
     });
 }
 
@@ -58,11 +60,13 @@ function sendCelebrityRequest(file, callback) : void{
         console.log(data);
         callback();
       } else {
-        console.log("something went wrong");
+        status_message.innerHTML = "We could not find who this is, please try again.";
+        console.log("We could not find who this is, please try again.");
       }
     })
     .fail (function (error) {
-      console.log("something went horribly wrong");
+      status_message.innerHTML = "Sorry, something went wrong. Please try again";
+      console.log(error);
     });
 }
 
@@ -72,6 +76,7 @@ function processImage(callback) : void {
   if (file) {
     reader.readAsDataURL(file); //used to read the contents of the file
   } else {
+    status_message.innerHTML = "Invalid file";
     console.log("Invalid file");
   }
   reader.onloadend = function (e) {
@@ -88,6 +93,7 @@ function readUrl (input): void {
     var image_reader = new FileReader();
     image_reader.onload = function (e) {
       $("#selected-image").attr("src", e.target.result);
+      person_name.innerHTML = "Obtaining name for person below.";
     };
     image_reader.readAsDataURL(input.files[0]);
   }
