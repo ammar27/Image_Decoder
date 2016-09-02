@@ -16,6 +16,7 @@ file_list.addEventListener("change", function () {
 function sendSearchRequest() {
     var name = person_name.innerHTML;
     status_message.innerHTML = "Fetching details";
+    $("#details").html("");
     $.ajax({
         url: "https://api.cognitive.microsoft.com/bing/v5.0/search?q=" + name + "&count=10",
         beforeSend: function (xhrObj) {
@@ -27,7 +28,6 @@ function sendSearchRequest() {
         if (data) {
             status_message.innerHTML = "Finished Successfully";
             status_message.style.color = "green";
-            $("#details").html("");
             for (var i in data.webPages.value) {
                 var url = data.webPages.value[i].displayUrl;
                 var substr = "http";
