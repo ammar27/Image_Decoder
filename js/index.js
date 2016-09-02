@@ -28,7 +28,13 @@ function sendSearchRequest() {
             console.log(data);
             $("#details-placeholder")[0].style.display = "none";
             for (var i in data.webPages.value) {
-                var text1 = "<div class=\"first-el\"><a href=" + data.webPages.value[i].displayUrl + ">" + data.webPages.value[i].name + "</a></div>";
+                var url = data.webPages.value[i].displayUrl;
+                var substr = "http";
+                if (url.indexOf(substr) == -1) {
+                    console.log("appending http");
+                    url = "http://" + url;
+                }
+                var text1 = "<div class=\"first-el\"><a href=" + url + ">" + data.webPages.value[i].name + "</a></div>";
                 var text2 = "<div class=\"second-el\">" + data.webPages.value[i].displayUrl + "</div>";
                 var text3 = "<div class=\"third-el\">" + data.webPages.value[i].snippet + "</div>";
                 $("#details").append(text1, text2, text3);

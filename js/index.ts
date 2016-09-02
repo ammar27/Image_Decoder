@@ -34,7 +34,13 @@ function sendSearchRequest() : void {
         // Adding details dynamically
         for (let i in data.webPages.value) {
           // console.log(data.webPages.value[i]);
-          var text1 : string = "<div class=\"first-el\"><a href=" + data.webPages.value[i].displayUrl + ">" + data.webPages.value[i].name + "</a></div>";
+          var url : string = data.webPages.value[i].displayUrl;
+          var substr : string = "http";
+          if (url.indexOf(substr) == -1) {
+            console.log("appending http");
+            url = "http://" + url;
+          }
+          var text1 : string = "<div class=\"first-el\"><a href=" + url + ">" + data.webPages.value[i].name + "</a></div>";
           var text2 : string = "<div class=\"second-el\">" + data.webPages.value[i].displayUrl + "</div>";
           var text3 : string = "<div class=\"third-el\">" + data.webPages.value[i].snippet + "</div>";
           $("#details").append(text1, text2, text3);
