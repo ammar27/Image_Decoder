@@ -53,7 +53,7 @@ function sendCelebrityRequest(file, callback) : void{
   })
     .done(function (data) {
       if (data) {
-        if (typeof(data.categories[0].detail) != "undefined") {
+        if ((typeof(data.categories[0].detail) != "undefined") && ((typeof(data.categories[0].detail.celebrities[0]) != "undefined"))) {
           var name : string = data.categories[0].detail.celebrities[0].name;
           var description : string = data.description.captions[0].text;
           person_name.innerHTML = name;
@@ -61,6 +61,7 @@ function sendCelebrityRequest(file, callback) : void{
           console.log(data);
           callback();
         } else {
+          console.log(data);
           person_name.innerHTML = "Sorry, person not found";
           status_message.innerHTML = "We could not find who this is, please try another image.";
         }
